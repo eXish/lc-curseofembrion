@@ -10,12 +10,16 @@ namespace CurseOfEmbrion.Patches
         [HarmonyPrefix]
         static void StartGamePatch(StartOfRound __instance)
         {
+            if (!__instance.IsHost)
+                return;
             int curseChance = ConfigManager.curseChance.Value;
             if (curseChance < 0 || curseChance > 100)
                 curseChance = (int)ConfigManager.curseChance.DefaultValue;
             if (UnityEngine.Random.Range(1, 101) <= curseChance)
             {
                 bool foundRadMech = false;
+                CurseOfEmbrionMod.levelDescription = __instance.currentLevel.LevelDescription;
+                __instance.currentLevel.LevelDescription += "\n\n<color=red>Curse of Embrion</color>";
                 CurseOfEmbrionMod.outsidePowerCount = __instance.currentLevel.maxOutsideEnemyPowerCount;
                 __instance.currentLevel.maxOutsideEnemyPowerCount = __instance.levels[12].maxOutsideEnemyPowerCount;
                 CurseOfEmbrionMod.outsideEnemies = __instance.currentLevel.OutsideEnemies.ToList();
@@ -27,12 +31,10 @@ namespace CurseOfEmbrion.Patches
                         __instance.currentLevel.OutsideEnemies[i] = __instance.levels[12].OutsideEnemies[3];
                     }
                     else
-                        __instance.currentLevel.OutsideEnemies[i].rarity = __instance.currentLevel.OutsideEnemies[i].rarity / 4;
+                        __instance.currentLevel.OutsideEnemies[i].rarity = ConfigManager.onlyBirdsOnCurse.Value ? 0 : __instance.currentLevel.OutsideEnemies[i].rarity / 4;
                 }
                 if (!foundRadMech)
                     __instance.currentLevel.OutsideEnemies.Add(__instance.levels[12].OutsideEnemies[3]);
-                if (CurseOfEmbrionMod.bundle != null && ConfigManager.enableCustomAudio.Value)
-                    __instance.speakerAudioSource.PlayOneShot(CurseOfEmbrionMod.curseClips[UnityEngine.Random.Range(0, 4)]);
             }
         }
 
@@ -40,10 +42,13 @@ namespace CurseOfEmbrion.Patches
         [HarmonyPrefix]
         static void EndOfGamePatch(StartOfRound __instance)
         {
+            if (!__instance.IsHost)
+                return;
             if (CurseOfEmbrionMod.outsideEnemies != null)
             {
                 __instance.currentLevel.OutsideEnemies = CurseOfEmbrionMod.outsideEnemies;
                 __instance.currentLevel.maxOutsideEnemyPowerCount = CurseOfEmbrionMod.outsidePowerCount;
+                __instance.currentLevel.LevelDescription = CurseOfEmbrionMod.levelDescription;
                 CurseOfEmbrionMod.outsideEnemies = null;
             }
         }
