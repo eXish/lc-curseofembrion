@@ -15,7 +15,7 @@ namespace CurseOfEmbrion.Patches
             int curseChance = ConfigManager.curseChance.Value;
             if (curseChance < 0 || curseChance > 100)
                 curseChance = (int)ConfigManager.curseChance.DefaultValue;
-            if (UnityEngine.Random.Range(1, 101) <= curseChance)
+            if (__instance.currentLevel.PlanetName != "71 Gordion" && UnityEngine.Random.Range(1, 101) <= curseChance)
             {
                 bool foundRadMech = false;
                 CurseOfEmbrionMod.levelDescription = __instance.currentLevel.LevelDescription;

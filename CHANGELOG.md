@@ -1,3 +1,6 @@
+## CurseOfEmbrion [1.1.1]
+- Fixed the curse having a chance to appear on Gordion
+
 ## CurseOfEmbrion [1.1.0]
 - Removed the custom speaker audio files announcing the curse
 - Removed the config variable "enableCustomAudio" as the feature is removed
