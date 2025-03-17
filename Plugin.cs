@@ -9,7 +9,7 @@ namespace CurseOfEmbrion
     {
         const string mGUID = "eXish.CurseOfEmbrion";
         const string mName = "CurseOfEmbrion";
-        const string mVersion = "1.1.1";
+        const string mVersion = "1.1.2";
 
         readonly Harmony harmony = new Harmony(mGUID);
 

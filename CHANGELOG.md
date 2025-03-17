@@ -1,3 +1,6 @@
+## CurseOfEmbrion [1.1.2]
+- Actually search for Embrion in the level list instead of assuming it's in a fixed position to hopefully fix a bug
+
 ## CurseOfEmbrion [1.1.1]
 - Fixed the curse having a chance to appear on Gordion
 
