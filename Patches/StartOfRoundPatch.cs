@@ -15,7 +15,7 @@ namespace CurseOfEmbrion.Patches
             int curseChance = ConfigManager.curseChance.Value;
             if (curseChance < 0 || curseChance > 100)
                 curseChance = (int)ConfigManager.curseChance.DefaultValue;
-            if (__instance.currentLevel.PlanetName != "71 Gordion" && UnityEngine.Random.Range(1, 101) <= curseChance)
+            if (__instance.currentLevel.spawnEnemiesAndScrap && UnityEngine.Random.Range(1, 101) <= curseChance)
             {
                 bool foundRadMech = false;
                 SelectableLevel embrion = __instance.levels.Where(x => x.PlanetName == "5 Embrion").First();
@@ -52,6 +52,17 @@ namespace CurseOfEmbrion.Patches
                 __instance.currentLevel.maxOutsideEnemyPowerCount = CurseOfEmbrionMod.outsidePowerCount;
                 __instance.currentLevel.LevelDescription = CurseOfEmbrionMod.levelDescription;
                 CurseOfEmbrionMod.outsideEnemies = null;
+            }
+        }
+
+        [HarmonyPatch("openingDoorsSequence")]
+        [HarmonyPrefix]
+        static void OpeningDoorsSequencePatch(StartOfRound __instance)
+        {
+            if (CurseOfEmbrionMod.bundle != null && ConfigManager.playAlertNoise.Value && __instance.currentLevel.LevelDescription.Contains("Curse of Embrion"))
+            {
+                CurseOfEmbrionMod.log.LogInfo("This moon has been cursed with Curse of Embrion!");
+                HUDManager.Instance.UIAudio.PlayOneShot(CurseOfEmbrionMod.alertNoise);
             }
         }
     }

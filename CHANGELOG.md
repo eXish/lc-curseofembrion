@@ -1,3 +1,9 @@
+## CurseOfEmbrion [1.2.0]
+- Added an alert noise that plays when the curse is present (thanks to Moroxide for the audio)
+- Added the config variable "playAlertNoise" which enables/disables the alert noise
+- Added a logging line for when the curse is present
+- Fixed the curse having a chance to appear on moons where enemy spawning is disabled
+
 ## CurseOfEmbrion [1.1.2]
 - Actually search for Embrion in the level list instead of assuming it's in a fixed position to hopefully fix a bug
 
