@@ -11,7 +11,7 @@ namespace CurseOfEmbrion
     {
         const string mGUID = "eXish.CurseOfEmbrion";
         const string mName = "CurseOfEmbrion";
-        const string mVersion = "1.2.0";
+        const string mVersion = "1.2.1";
 
         readonly Harmony harmony = new Harmony(mGUID);
 
@@ -33,6 +33,8 @@ namespace CurseOfEmbrion
             ConfigManager.Init();
             if (ConfigManager.curseChance.Value < 0 || ConfigManager.curseChance.Value > 100)
                 log.LogWarning($"The value \"{ConfigManager.curseChance.Value}\" is not valid for setting \"curseChance\"! The default will be used instead.");
+            if (ConfigManager.alertNoiseVolume.Value < 0.1f || ConfigManager.alertNoiseVolume.Value > 1f)
+                log.LogWarning($"The value \"{ConfigManager.alertNoiseVolume.Value}\" is not valid for setting \"alertNoiseVolume\"! The default will be used instead.");
 
             string modLocation = instance.Info.Location.TrimEnd("CurseOfEmbrion.dll".ToCharArray());
             bundle = AssetBundle.LoadFromFile(modLocation + "curseofembrion");

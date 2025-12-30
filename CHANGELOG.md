@@ -1,3 +1,6 @@
+## CurseOfEmbrion [1.2.1]
+- Added the config variable "alertNoiseVolume" which sets the volume of the alert noise
+
 ## CurseOfEmbrion [1.2.0]
 - Added an alert noise that plays when the curse is present (thanks to Moroxide for the audio)
 - Added the config variable "playAlertNoise" which enables/disables the alert noise

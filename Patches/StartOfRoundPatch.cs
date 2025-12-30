@@ -62,7 +62,10 @@ namespace CurseOfEmbrion.Patches
             if (CurseOfEmbrionMod.bundle != null && ConfigManager.playAlertNoise.Value && __instance.currentLevel.LevelDescription.Contains("Curse of Embrion"))
             {
                 CurseOfEmbrionMod.log.LogInfo("This moon has been cursed with Curse of Embrion!");
-                HUDManager.Instance.UIAudio.PlayOneShot(CurseOfEmbrionMod.alertNoise);
+                float alertVolume = ConfigManager.alertNoiseVolume.Value;
+                if (alertVolume < 0.1f || alertVolume > 1f)
+                    alertVolume = (float)ConfigManager.alertNoiseVolume.DefaultValue;
+                HUDManager.Instance.UIAudio.PlayOneShot(CurseOfEmbrionMod.alertNoise, alertVolume);
             }
         }
     }
